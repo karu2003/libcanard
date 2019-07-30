@@ -32,6 +32,14 @@
 #include <stdbool.h>
 #include <assert.h>
 
+#ifndef uint8_t
+typedef uint_least8_t     uint8_t;
+#endif
+
+#ifndef int8_t
+typedef int_least8_t      int8_t;
+#endif
+
 /// Build configuration header. Use it to provide your overrides.
 #if defined(CANARD_ENABLE_CUSTOM_BUILD_CONFIG) && CANARD_ENABLE_CUSTOM_BUILD_CONFIG
 # include "canard_build_config.h"
