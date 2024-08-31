@@ -580,7 +580,8 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
         if (rx_state->payload_len < CANARD_MULTIFRAME_RX_PAYLOAD_HEAD_SIZE)
         {
             // Copy the beginning of the frame into the head, point the tail pointer to the remainder
-            for (size_t i = rx_state->payload_len;
+            size_t i;
+            for (i = rx_state->payload_len;
                  (i < CANARD_MULTIFRAME_RX_PAYLOAD_HEAD_SIZE) && (tail_offset < frame_payload_size);
                  i++, tail_offset++)
             {
@@ -604,7 +605,8 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
                 const size_t offset_within_block = rx_state->payload_len - offset;
                 CANARD_ASSERT(offset_within_block <= CANARD_BUFFER_BLOCK_DATA_SIZE);
 
-                for (size_t i = offset_within_block;
+                size_t i;
+                for (i = offset_within_block;
                      (i < CANARD_BUFFER_BLOCK_DATA_SIZE) && (tail_offset < frame_payload_size);
                      i++, tail_offset++)
                 {
@@ -819,7 +821,8 @@ int16_t canardDecodeScalar(const CanardRxTransfer* transfer,
      */
     {
         uint64_t temp = 0;
-        for(uint16_t i=0; i<std_byte_length; i++)
+        uint16_t i;
+        for(i=0; i<std_byte_length; i++)
         {
             temp |= (((uint64_t)storage.bytes[i] & 0xFFU) << (8*i));
         }
@@ -963,7 +966,8 @@ void canardEncodeScalar(void* destination,
      */
     {
         uint64_t temp = storage.u64;
-        for(uint16_t i=0; i<std_byte_length; i++)
+        uint16_t i;
+        for(i=0; i<std_byte_length; i++)
         {
             storage.bytes[i] = (temp >> (8*i)) & 0xFFU;
         }
@@ -1536,7 +1540,8 @@ CANARD_INTERNAL int16_t bufferBlockPushBytes(CanardPoolAllocator* allocator,
     // if head is not full, add data to head
     if ((CANARD_MULTIFRAME_RX_PAYLOAD_HEAD_SIZE - state->payload_len) > 0)
     {
-        for (uint16_t i = (uint16_t)state->payload_len;
+        uint16_t i;
+        for (i = (uint16_t)state->payload_len;
              i < CANARD_MULTIFRAME_RX_PAYLOAD_HEAD_SIZE && data_index < data_len;
              i++, data_index++)
         {
@@ -1598,7 +1603,8 @@ CANARD_INTERNAL int16_t bufferBlockPushBytes(CanardPoolAllocator* allocator,
     // add data to current block until it becomes full, add new block if necessary
     while (data_index < data_len)
     {
-        for (uint16_t i = index_at_nth_block;
+        uint16_t i;
+        for (i = index_at_nth_block;
              i < CANARD_BUFFER_BLOCK_DATA_SIZE && data_index < data_len;
              i++, data_index++)
         {
@@ -1831,7 +1837,8 @@ CANARD_INTERNAL void swapByteOrder(void* data, unsigned size)
 CANARD_INTERNAL uint16_t crcAddByte(uint16_t crc_val, uint8_t byte)
 {
     crc_val ^= (uint16_t) ((uint16_t) (byte) << 8U);
-    for (uint8_t j = 0; j < 8; j++)
+    uint8_t j;
+    for (j = 0; j < 8; j++)
     {
         if (crc_val & 0x8000U)
         {
@@ -1847,7 +1854,8 @@ CANARD_INTERNAL uint16_t crcAddByte(uint16_t crc_val, uint8_t byte)
 
 CANARD_INTERNAL uint16_t crcAddSignature(uint16_t crc_val, uint64_t data_type_signature)
 {
-    for (uint16_t shift_val = 0; shift_val < 64; shift_val = (uint16_t)(shift_val + 8U))
+    uint16_t shift_val;
+    for (shift_val = 0; shift_val < 64; shift_val = (uint16_t)(shift_val + 8U))
     {
         crc_val = crcAddByte(crc_val, (uint8_t) (data_type_signature >> shift_val));
     }

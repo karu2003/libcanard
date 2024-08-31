@@ -37,6 +37,16 @@
 # include "canard_build_config.h"
 #endif
 
+#ifdef ARCH_BYTE16
+#ifndef uint8_t
+#define uint8_t uint_least8_t
+#endif
+
+#ifndef int8_t
+#define int8_t int_least8_t
+#endif
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
