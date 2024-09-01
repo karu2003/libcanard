@@ -1,5 +1,5 @@
-#ifndef __CAN_H__
-#define __CAN_H__
+#ifndef __CAN2C_H__
+#define __CAN2C_H__
 
 #include <stdint.h>
 
@@ -29,9 +29,10 @@ extern "C" {
 #define CAN_500KBPS  11
 #endif
 
-int8_t can_init(uint32_t speed);
+uint8_t can_init(uint32_t speed);
 uint8_t can_read(uint32_t *id, void *data, uint8_t *len);
 uint8_t can_write(uint32_t id, void *data, uint8_t len);
+
 
 #ifdef __cplusplus
 }
