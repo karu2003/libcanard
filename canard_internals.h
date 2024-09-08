@@ -78,8 +78,10 @@ extern "C" {
 #endif
 
 #if WORD_ADDRESSING_IS_16BITS
-# define uint8_t               uint16_t
-# define int8_t                int16_t
+// # define uint8_t               uint16_t
+// # define int8_t                int16_t
+#define uint8_t uint_least8_t
+#define int8_t int_least8_t
 # define CANARD_SIZEOF_FLOAT   2
 #else
 # define CANARD_SIZEOF_FLOAT   4
