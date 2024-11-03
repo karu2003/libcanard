@@ -41,6 +41,24 @@
 extern "C" {
 #endif
 
+#ifndef WORD_ADDRESSING_IS_16BITS
+#if defined(__TI_COMPILER_VERSION__) || defined(__TMS320C2000__)
+#define WORD_ADDRESSING_IS_16BITS 1
+#else
+#define WORD_ADDRESSING_IS_16BITS 0
+#endif
+#endif
+
+#if WORD_ADDRESSING_IS_16BITS
+// # define uint8_t               uint16_t
+// # define int8_t                int16_t
+#define uint8_t uint_least8_t
+#define int8_t int_least8_t
+#define CANARD_SIZEOF_FLOAT 2
+#else
+#define CANARD_SIZEOF_FLOAT 4
+#endif
+
 /// Libcanard version. API will be backwards compatible within the same major version.
 #define CANARD_VERSION_MAJOR                        0
 #define CANARD_VERSION_MINOR                        2
